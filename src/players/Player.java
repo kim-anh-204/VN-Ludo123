@@ -89,16 +89,16 @@ public class Player{
         return true;
     }
 
-    public boolean threeMovesExceeded(int diceResult) {
-        if (consecutiveMovesCount != 3) {
-            consecutiveMovesCount = diceResult == 6 || allFiguresAtStartingPosition() ? consecutiveMovesCount + 1 : 1;
-            return false;
-        }
-        else {
-            consecutiveMovesCount = 1;
-            return true;
-        }
-    }
+//    public boolean threeMovesExceeded(int diceResult) {
+//        if (consecutiveMovesCount != 3) {
+//            consecutiveMovesCount = diceResult == 6 || allFiguresAtStartingPosition() ? consecutiveMovesCount + 1 : 1;
+//            return false;
+//        }
+//        else {
+//            consecutiveMovesCount = 1;
+//            return true;
+//        }
+//    }
 
     public boolean isComputer() {
         return false;

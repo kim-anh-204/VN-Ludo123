@@ -525,11 +525,12 @@ public class Play extends BasicGameState {
                 break;
         }
     }
+//nếu chưa có quân nào ra chuồng đc 3 lần quay xx
+private boolean isEndTurn(int diceResult) {
+    return diceResult != 1 && diceResult != 6;
+}
 
-    private boolean isEndTurn(int diceResult) {
-        return activePlayer.threeMovesExceeded(diceResult)
-                || diceResult != 6 && !activePlayer.allFiguresAtStartingPosition();
-    }
+
 
     private String getWinningMessage() {
         return "Congratulations! " + activePlayer.getName() + " \n" + "has won the game.Press NEW GAME \n"

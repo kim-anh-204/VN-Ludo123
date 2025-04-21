@@ -21,14 +21,14 @@ public class Figure  {
 
     public Figure(Position startPosition, FigureColor color) {
         currentPosition = startPosition;
-        this.currentPosition.setIsOccupied(true, this);
+        this.currentPosition.setIsOccupied(true, this);//da bi chiem cho
         this.startingPosition = Positions.isStartingPosition(startPosition, color) ? startPosition : null;
         this.color = color;
         stepsFromEntryPosition = 0;
         finishingPositions = Positions.getFinishingPositions(color);
         isKicked = false;
     }
-
+//ve quan co o vi tri hien tai
     public void draw(Graphics g) throws SlickException {
         g.drawImage(new Image("res/" + color.toString().toLowerCase() + "-figure.png"), currentPosition.getX(), currentPosition.getY());
     }
@@ -60,15 +60,18 @@ public class Figure  {
 
     public Position movable(int diceResult) {
         return checkMovesAvailable(diceResult) ? temporaryNewPosition : null;
-    }
 
+    }// trả lại vị trí tạm thời nếu di chuyển hợp lệ
     private boolean checkMovesAvailable(int diceResult) {
         if (currentPosition == startingPosition) {
-            if (diceResult != 6) {
-                return false;
+            // Nếu xúc xắc ra 1 hoặc 6 và vị trí hiện tại là bắt đầu
+            if (diceResult == 1 || diceResult == 6) {
+                return isEnteringBoardPossible(); // Kiểm tra vị trí ra chuồng có trống không
             }
-            return isEnteringBoardPossible();
+            return false; // Nếu không phải 1 hoặc 6, không thể ra chuồng
         }
+
+        // Kiểm tra di chuyển đến các vị trí khác trên bàn chơi
         return currentPosition == Positions.getTransitionPosition(color) || Positions.isFinishingPosition(currentPosition, color) ?
                 finishMove(diceResult) : isNormalMovePossible(diceResult);
     }
