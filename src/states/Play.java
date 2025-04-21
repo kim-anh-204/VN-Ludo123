@@ -126,8 +126,8 @@ public class Play extends BasicGameState {
 		super.enter(gc, sbg);
 		isMovesAvailable = false;
 		initializeBoard();
-		instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
-				: "Hold down the button \"ROLL\"\nto cast the dice";
+		instructionText = activePlayer.isComputer() ? " May tinh dang thuc hien nuoc di.\nHay chu y!"
+				: "Giu nut \"DO XUC XAC\" de do xuc xac";
 		dice = new Dice();
 		resetDice();
 		renderDiceNewGame();
@@ -166,7 +166,7 @@ public class Play extends BasicGameState {
 		g.setBackground(new Color(241, 250, 238));
 		g.drawImage(board, 0, 0);
 		g.setColor(Color.black);
-		g.drawString("Active player: " + activePlayer.getName(), 875, 125);
+		g.drawString("Luot cua: " + activePlayer.getName(), 875, 125);
 		g.drawString(instructionText, 875, 185);
 		//		g.drawString(getAvailableMovesText(), 875, 185);
 		g.drawImage(normalDice, diceX, diceY);
@@ -219,8 +219,8 @@ public class Play extends BasicGameState {
 						&& !(rollingDicePhase && choosingFigurePhase)) {
 					// random > 0 -> holding the button works
 					if (random > 0) {
-						instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
-								: "Hold down the button \"ROLL\"\nto cast the dice";
+						instructionText = activePlayer.isComputer() ? " May tinh dang thuc hien nuoc di.\nHay chu y!"
+								: "Giu nut \"DO XUC XAC\" de do xuc xac";
 						toggleDices();
 					} else if (random == 0) {
 						resetDiceIfNoMovesPossible = false;
@@ -242,7 +242,7 @@ public class Play extends BasicGameState {
 						}
 						if (!isMovesAvailable) {
 							if (!activePlayer.isComputer()) {
-								instructionText = "No moves available.\nThe dice will be reset shortly.";
+								instructionText = "Khong co nuoc di kha dung.\nXuc xac se duoc dat lai. ";
 							}
 							if (activePlayer.isComputer()) {
 								delayEnded = false;
@@ -252,7 +252,7 @@ public class Play extends BasicGameState {
 							if (isEndTurn(diceResult)) {
 								activePlayer = getNextPlayer();
 								if (!activePlayer.isComputer()) {
-									instructionText = "Hold down the button \"ROLL\"\nto cast the dice";
+									instructionText = " Giu nut \"DO XUC XAC\" de do xuc xac";
 								}
 							}
 							delayEnded = false;
@@ -260,8 +260,8 @@ public class Play extends BasicGameState {
 							activePlayer.isReady = true;
 						}
 						else if (!activePlayer.isComputer()){
-							instructionText = "Make a move! After that, the "
-									+ "\ndice will be reset shortly.";
+							instructionText = "Hay thuc hien mot nuoc di! Sau do, "
+									+ "\nxuc xac se duoc thiet lap lai.";
 							resetDiceIfNoMovesPossible = true;
 						}
 						else {
@@ -276,7 +276,7 @@ public class Play extends BasicGameState {
 				}
 
 				if (activePlayer.isComputer() && choosingFigurePhase && isMovesAvailable && delayEnded) {
-					instructionText = "The computer is making a move.\nStay alert!";
+					instructionText = "May tinh dang thuc hien nuoc di.\nHay chu y!";
 					ComputerPlayer com = (ComputerPlayer) activePlayer;
 					delayEnded = false;
 					timer.start();
@@ -289,7 +289,7 @@ public class Play extends BasicGameState {
 						activePlayer = getNextPlayer();
 					}
 					if (!activePlayer.isComputer()) {
-						instructionText = "The dice will be reset shortly.";
+						instructionText = " Xuc xac se duoc lam lai.";
 					}
 					activePlayer.isReady = true;
 					choosingFigurePhase = false;
@@ -476,8 +476,8 @@ public class Play extends BasicGameState {
 		random = (int) (Math.random() * 20) + 50;
 		random_fixed = random;
 
-		instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
-				: "Hold down the button \"ROLL\"\nto cast the dice";
+		instructionText = activePlayer.isComputer() ? "May tinh dang thuc hien nuoc di.\nHay chu y!"
+				: "Giu nut \"DO XUC XAC\" de do xuc xac";
 
 		// reset the dice image position
 		switch (diceResult) {
@@ -533,9 +533,10 @@ public class Play extends BasicGameState {
 
 
 	private String getWinningMessage() {
-		return "Congratulations! " + activePlayer.getName() + " \n" + "has won the game.Press NEW GAME \n"
-				+ "to start a new game or QUIT GAME \n" + "to exit the game.";
-	}
+		return "Chuc mung! " + activePlayer.getName() + "\n"
+				+ "da chien thang tro choi. Nhan VAN MOI \n"
+				+ "de bat dau tro choi moi hoac THOAT \n"
+				+ "de thoat tro choi.";}
 
 	private void renderNewGameButton(Input input, StateBasedGame sbg) {
 		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2

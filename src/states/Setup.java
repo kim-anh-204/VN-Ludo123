@@ -242,7 +242,7 @@ public class Setup extends BasicGameState {
 					com1_y = human1_y;
 					human1_y = NEG_INFINITY;
 					isBlueHuman = false;
-					bluePlayer.setText("Play with AI");
+					bluePlayer.setText("AI");
 					numOfHuman--;
 				} else if (isBlueInactive) {
 					human1_y = inactive1_y;
@@ -270,7 +270,7 @@ public class Setup extends BasicGameState {
 					com2_y = human2_y;
 					human2_y = NEG_INFINITY;
 					isYellowHuman = false;
-					yellowPlayer.setText("Play with AI");
+					yellowPlayer.setText("AI");
 					numOfHuman--;
 				} else if (isYellowInactive) {
 					human2_y = inactive2_y;
@@ -299,7 +299,7 @@ public class Setup extends BasicGameState {
 					com3_y = human3_y;
 					human3_y = NEG_INFINITY;
 					isGreenHuman = false;
-					greenPlayer.setText("Play with AI");
+					greenPlayer.setText("AI");
 					numOfHuman--;
 				} else if (isGreenInactive) {
 					human3_y = inactive3_y;
@@ -328,7 +328,7 @@ public class Setup extends BasicGameState {
 					com4_y = human4_y;
 					human4_y = NEG_INFINITY;
 					isRedHuman = false;
-					redPlayer.setText("Play with AI");
+					redPlayer.setText("AI");
 					numOfHuman--;
 				} else if (isRedInactive) {
 					human4_y = inactive4_y;
