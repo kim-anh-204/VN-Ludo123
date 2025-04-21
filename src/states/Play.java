@@ -88,7 +88,7 @@ public class Play extends BasicGameState {
 
 	private String instructionText = "";
 	private String winningMsg = "";
-	
+
 	private Timer timer;
 	private boolean delayEnded;
 
@@ -102,7 +102,7 @@ public class Play extends BasicGameState {
 
 		rollX = (board.getWidth() + SCREEN_WIDTH - roll.getWidth()) / 2;
 		rollY = diceY + normalDice.getHeight() + 50;
-		
+
 		diceX_hidden1 = NEG_INFINITY;
 		diceY_hidden1 = NEG_INFINITY;
 
@@ -126,19 +126,19 @@ public class Play extends BasicGameState {
 		super.enter(gc, sbg);
 		isMovesAvailable = false;
 		initializeBoard();
-		instructionText = activePlayer.isComputer() ? "May tinh dang thuc hien nuoc di.\n Hay chu y!"
-				: "Giu nut \"DO XUC XAC\" de do xuc xac";
+		instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
+				: "Hold down the button \"ROLL\"\nto cast the dice";
 		dice = new Dice();
 		resetDice();
 		renderDiceNewGame();
 		diceResult = 0;
 		resetDiceIfNoMovesPossible = true;
-		
+
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-		          delayEnded = true;
-		          timer.stop();
-		      }
+				delayEnded = true;
+				timer.stop();
+			}
 		};
 		timer = new Timer(2000, listener);
 		delayEnded = true;
@@ -166,7 +166,7 @@ public class Play extends BasicGameState {
 		g.setBackground(new Color(241, 250, 238));
 		g.drawImage(board, 0, 0);
 		g.setColor(Color.black);
-		g.drawString("Luot cua : " + activePlayer.getName(), 875, 125);
+		g.drawString("Active player: " + activePlayer.getName(), 875, 125);
 		g.drawString(instructionText, 875, 185);
 		//		g.drawString(getAvailableMovesText(), 875, 185);
 		g.drawImage(normalDice, diceX, diceY);
@@ -219,8 +219,8 @@ public class Play extends BasicGameState {
 						&& !(rollingDicePhase && choosingFigurePhase)) {
 					// random > 0 -> holding the button works
 					if (random > 0) {
-						instructionText = activePlayer.isComputer() ? "May tinh dang thuc hien nuoc di.\nHay chu y!"
-								: "Giu nut \"DO XUC XAC\" de do xuc xac";
+						instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
+								: "Hold down the button \"ROLL\"\nto cast the dice";
 						toggleDices();
 					} else if (random == 0) {
 						resetDiceIfNoMovesPossible = false;
@@ -242,7 +242,7 @@ public class Play extends BasicGameState {
 						}
 						if (!isMovesAvailable) {
 							if (!activePlayer.isComputer()) {
-								instructionText = "Khong co nuoc di kha dung.\n Xuc xac se duoc dat lai. ";
+								instructionText = "No moves available.\nThe dice will be reset shortly.";
 							}
 							if (activePlayer.isComputer()) {
 								delayEnded = false;
@@ -252,7 +252,7 @@ public class Play extends BasicGameState {
 							if (isEndTurn(diceResult)) {
 								activePlayer = getNextPlayer();
 								if (!activePlayer.isComputer()) {
-									instructionText = "Giu nut \"DO XUC XAC\" de do xuc xac";
+									instructionText = "Hold down the button \"ROLL\"\nto cast the dice";
 								}
 							}
 							delayEnded = false;
@@ -260,8 +260,8 @@ public class Play extends BasicGameState {
 							activePlayer.isReady = true;
 						}
 						else if (!activePlayer.isComputer()){
-							instructionText = "Hay thuc hien mot nuoc di! Sau do, \n"
-									+ "xuc xac se duoc thiet lap lai. ";
+							instructionText = "Make a move! After that, the "
+									+ "\ndice will be reset shortly.";
 							resetDiceIfNoMovesPossible = true;
 						}
 						else {
@@ -276,7 +276,7 @@ public class Play extends BasicGameState {
 				}
 
 				if (activePlayer.isComputer() && choosingFigurePhase && isMovesAvailable && delayEnded) {
-					instructionText = "May tinh dang thuc hien nuoc di.\n Hay chu y!";
+					instructionText = "The computer is making a move.\nStay alert!";
 					ComputerPlayer com = (ComputerPlayer) activePlayer;
 					delayEnded = false;
 					timer.start();
@@ -289,7 +289,7 @@ public class Play extends BasicGameState {
 						activePlayer = getNextPlayer();
 					}
 					if (!activePlayer.isComputer()) {
-						instructionText = " Xuc xac se duoc lam lai trong giay lat.";
+						instructionText = "The dice will be reset shortly.";
 					}
 					activePlayer.isReady = true;
 					choosingFigurePhase = false;
@@ -476,68 +476,66 @@ public class Play extends BasicGameState {
 		random = (int) (Math.random() * 20) + 50;
 		random_fixed = random;
 
-		instructionText = activePlayer.isComputer() ? "May tinh dang thuc hien nuoc di.\n Hay chu y!"
-				: "Giu nut \"DO XUC XAC\" de do xuc xac";
+		instructionText = activePlayer.isComputer() ? "The computer is making a move.\nStay alert!"
+				: "Hold down the button \"ROLL\"\nto cast the dice";
 
 		// reset the dice image position
 		switch (diceResult) {
-		case 1:
-			diceX = diceX_hidden1;
-			diceY = diceY_hidden1;
+			case 1:
+				diceX = diceX_hidden1;
+				diceY = diceY_hidden1;
 
-			diceX_hidden1 = NEG_INFINITY;
-			diceY_hidden1 = NEG_INFINITY;
-			break;
-		case 2:
-			diceX = diceX_hidden2;
-			diceY = diceY_hidden2;
+				diceX_hidden1 = NEG_INFINITY;
+				diceY_hidden1 = NEG_INFINITY;
+				break;
+			case 2:
+				diceX = diceX_hidden2;
+				diceY = diceY_hidden2;
 
-			diceX_hidden2 = NEG_INFINITY;
-			diceY_hidden2 = NEG_INFINITY;
-			break;
-		case 3:
-			diceX = diceX_hidden3;
-			diceY = diceY_hidden3;
+				diceX_hidden2 = NEG_INFINITY;
+				diceY_hidden2 = NEG_INFINITY;
+				break;
+			case 3:
+				diceX = diceX_hidden3;
+				diceY = diceY_hidden3;
 
-			diceX_hidden3 = NEG_INFINITY;
-			diceY_hidden3 = NEG_INFINITY;
-			break;
-		case 4:
-			diceX = diceX_hidden4;
-			diceY = diceY_hidden4;
+				diceX_hidden3 = NEG_INFINITY;
+				diceY_hidden3 = NEG_INFINITY;
+				break;
+			case 4:
+				diceX = diceX_hidden4;
+				diceY = diceY_hidden4;
 
-			diceX_hidden4 = NEG_INFINITY;
-			diceY_hidden4 = NEG_INFINITY;
-			break;
-		case 5:
-			diceX = diceX_hidden5;
-			diceY = diceY_hidden5;
+				diceX_hidden4 = NEG_INFINITY;
+				diceY_hidden4 = NEG_INFINITY;
+				break;
+			case 5:
+				diceX = diceX_hidden5;
+				diceY = diceY_hidden5;
 
-			diceX_hidden5 = NEG_INFINITY;
-			diceY_hidden5 = NEG_INFINITY;
-			break;
-		case 6:
-			diceX = diceX_hidden6;
-			diceY = diceY_hidden6;
+				diceX_hidden5 = NEG_INFINITY;
+				diceY_hidden5 = NEG_INFINITY;
+				break;
+			case 6:
+				diceX = diceX_hidden6;
+				diceY = diceY_hidden6;
 
-			diceX_hidden6 = NEG_INFINITY;
-			diceY_hidden6 = NEG_INFINITY;
-			break;
+				diceX_hidden6 = NEG_INFINITY;
+				diceY_hidden6 = NEG_INFINITY;
+				break;
 		}
 	}
-
+	//nếu chưa có quân nào ra chuồng đc 3 lần quay xx
 	private boolean isEndTurn(int diceResult) {
-		return activePlayer.threeMovesExceeded(diceResult)
-				|| diceResult != 6 && !activePlayer.allFiguresAtStartingPosition();
+		return diceResult != 1 && diceResult != 6;
 	}
+
+
 
 	private String getWinningMessage() {
-		return "Chuc mung! " + activePlayer.getName() + "\n"
-				+ "da chien thang tro choi. Nhan VAN MOI \n"
-				+ "de bat dau tro choi moi hoac THOAT \n"
-				+ "de thoat tro choi.";
+		return "Congratulations! " + activePlayer.getName() + " \n" + "has won the game.Press NEW GAME \n"
+				+ "to start a new game or QUIT GAME \n" + "to exit the game.";
 	}
-
 
 	private void renderNewGameButton(Input input, StateBasedGame sbg) {
 		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2
