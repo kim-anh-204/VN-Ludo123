@@ -19,10 +19,14 @@ public class Menu extends BasicGameState {
 	private float exitX;
 	private float exitY;
 
+	private float ruleX;
+	private float ruleY;
+
 	Image background;
 	Image welcome;
 	Image play;
 	Image exit;
+	Image rule;
 
 	public Menu(int state) {
 
@@ -33,10 +37,11 @@ public class Menu extends BasicGameState {
 		welcome = new Image("res/welcome.png");
 		play = new Image("res/button-play.png");
 		exit = new Image("res/button-exit.png");
+		rule = new Image("res/button-rule.png");
 		
 		// distance from the first/last image to the edge of the screen compared to the screen height
 		double fromImageToEdge = 0.2;
-		float offsetY = 140f;
+		float offsetY = 220f;
 
 //		welcomeX = (SCREEN_WIDTH - welcome.getWidth()) / 2;
 //		welcomeY = (float) (SCREEN_HEIGHT * fromImageToEdge);
@@ -44,15 +49,18 @@ public class Menu extends BasicGameState {
 		playX = (SCREEN_WIDTH - play.getWidth()) / 2;
 		playY = (float)(welcome.getHeight() + (SCREEN_HEIGHT * fromImageToEdge ) +
 				(SCREEN_HEIGHT * (1- 2* fromImageToEdge) - welcome.getHeight() - play.getHeight() - exit.getHeight()) / 2)- offsetY;
-		
+		ruleX = (SCREEN_WIDTH - rule.getWidth()) / 2;
+		ruleY = playY + play.getHeight() + 50; // cách nút play 20px
+
 		exitX = (SCREEN_WIDTH - exit.getWidth()) / 2;
-		exitY = (float) (SCREEN_HEIGHT * (1- fromImageToEdge)  - exit.getHeight())- offsetY;
+		exitY = ruleY + rule.getHeight() + 50; // cách nút luật chơi 20px
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		background.draw(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 //		welcome.draw(welcomeX, welcomeY);
 		play.draw(playX, playY);
+		rule.draw(ruleX, ruleY);
 		exit.draw(exitX, exitY);
 	}
 
@@ -75,6 +83,13 @@ public class Menu extends BasicGameState {
 		            System.out.println(e);
 		        }
 				sbg.enterState(1);
+			}
+		}
+		if ((xPos > ruleX && xPos < ruleX + rule.getWidth()) &&
+				(yPos > SCREEN_HEIGHT - ruleY - rule.getHeight() && yPos < SCREEN_HEIGHT - ruleY)) {
+			if (input.isMouseButtonDown(0)) {
+				try { Thread.sleep(300); } catch (Exception e) { System.out.println(e); }
+				sbg.enterState(3);
 			}
 		}
 		
