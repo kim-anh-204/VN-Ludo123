@@ -191,7 +191,7 @@ public class Setup extends BasicGameState {
 		// Kiểm tra sự kiện nhấn nút Exit
 		if ((xPos > exitX && xPos < exitX + exitWidth) && (yPos > exitY && yPos < exitY + exitHeight)) {
 			if (input.isMouseButtonDown(0)) {
-				gc.exit();  // Thoát trò chơi
+				gc.exit();
 			}
 		}
 

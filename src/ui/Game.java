@@ -7,6 +7,7 @@ import states.Menu;
 import states.Play;
 import states.Setup;
 import states.Rule;
+import states.Settings;
 
 public class Game extends StateBasedGame {
 	public static final String gameName = "Ludo";
@@ -17,6 +18,7 @@ public class Game extends StateBasedGame {
 	public static final int setup = 1;
 	public static final int play = 2;
 	public static final int rule = 3;
+	public static final int settings = 4;
 
 	public Game(String gameName) {
 		super(gameName);
@@ -26,7 +28,9 @@ public class Game extends StateBasedGame {
 		addState(new Menu(menu));
 		addState(new Setup(setup));
 		addState(new Play(play));
-		addState(new Rule(3));
+		addState(new Rule(rule));
+		addState(new Settings(settings));
+
 
 
 		enterState(menu);

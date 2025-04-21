@@ -22,14 +22,17 @@ public class Menu extends BasicGameState {
 	private float ruleX;
 	private float ruleY;
 
+	private float settingsX;
+	private float settingsY;
+
 	Image background;
 	Image welcome;
 	Image play;
 	Image exit;
 	Image rule;
+	Image settings;
 
 	public Menu(int state) {
-
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -38,10 +41,11 @@ public class Menu extends BasicGameState {
 		play = new Image("res/button-play.png");
 		exit = new Image("res/button-exit.png");
 		rule = new Image("res/button-rule.png");
+		settings = new Image("res/button-settings.png");
 		
 		// distance from the first/last image to the edge of the screen compared to the screen height
 		double fromImageToEdge = 0.2;
-		float offsetY = 220f;
+		float offsetY = 320f;
 
 //		welcomeX = (SCREEN_WIDTH - welcome.getWidth()) / 2;
 //		welcomeY = (float) (SCREEN_HEIGHT * fromImageToEdge);
@@ -50,10 +54,11 @@ public class Menu extends BasicGameState {
 		playY = (float)(welcome.getHeight() + (SCREEN_HEIGHT * fromImageToEdge ) +
 				(SCREEN_HEIGHT * (1- 2* fromImageToEdge) - welcome.getHeight() - play.getHeight() - exit.getHeight()) / 2)- offsetY;
 		ruleX = (SCREEN_WIDTH - rule.getWidth()) / 2;
-		ruleY = playY + play.getHeight() + 50; // cách nút play 20px
-
+		ruleY = playY + play.getHeight() + 40;
+		settingsX = (SCREEN_WIDTH - settings.getWidth()) / 2;
+		settingsY = ruleY + rule.getHeight() + 40;
 		exitX = (SCREEN_WIDTH - exit.getWidth()) / 2;
-		exitY = ruleY + rule.getHeight() + 50; // cách nút luật chơi 20px
+		exitY = settingsY + settings.getHeight() + 40;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -62,6 +67,8 @@ public class Menu extends BasicGameState {
 		play.draw(playX, playY);
 		rule.draw(ruleX, ruleY);
 		exit.draw(exitX, exitY);
+		settings.draw(settingsX,settingsY);
+
 	}
 
 	// update regularly the image on the screen (cause the animation) (AKA ALWAYS LISTEN FOR EVENT)
@@ -92,7 +99,12 @@ public class Menu extends BasicGameState {
 				sbg.enterState(3);
 			}
 		}
-		
+		if ((xPos > settingsX && xPos < settingsX + settings.getWidth()) && (yPos > SCREEN_HEIGHT - settingsY - settings.getHeight() && yPos < SCREEN_HEIGHT - settingsY)) {
+			if(input.isMouseButtonDown(0)) {
+				try { Thread.sleep(300); } catch (Exception e) { System.out.println(e); }
+				sbg.enterState(4); // Đưa vào màn hình cài đặt
+			}
+		}
 		if ((xPos>exitX && xPos<exitX + exit.getWidth()) && 
 				(yPos>SCREEN_HEIGHT - exitY - exit.getHeight() && yPos<SCREEN_HEIGHT - exitY)) {
 			if(input.isMouseButtonDown(0)) {
