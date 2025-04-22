@@ -534,9 +534,9 @@ public class Play extends BasicGameState {
 
 	private String getWinningMessage() {
 		return "Chuc mung! " + activePlayer.getName() + "\n"
-				+ "da chien thang tro choi. Nhan VAN MOI \n"
-				+ "de bat dau tro choi moi hoac THOAT \n"
-				+ "de thoat tro choi.";}
+				+ "da chien thang tro choi. Nhan \n"
+				+ "VAN MOI de bat dau tro choi moi hoac \n"
+				+ "THOAT de thoat tro choi.";}
 
 	private void renderNewGameButton(Input input, StateBasedGame sbg) {
 		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2
@@ -559,8 +559,6 @@ public class Play extends BasicGameState {
 			}
 		}
 	}
-
-	// ID of Play is 2
 	public int getID() {
 		return 2;
 	}

@@ -25,7 +25,7 @@ public class Settings extends BasicGameState {
     private float okButtonHeight = 50f; // Chiều cao nút OK
 
     public Settings(int state) {
-        this.message = "Cài đặt đang được phát triển!";
+        this.message = "";
     }
 
 
