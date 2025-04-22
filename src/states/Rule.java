@@ -10,7 +10,6 @@ public class Rule extends BasicGameState {
     private Image background;
     private Image ruleImage;
     private Image okButton;
-
     private float ruleX, ruleY;
     private float okX, okY;
 
