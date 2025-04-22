@@ -22,5 +22,6 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người - Máy - Khô
     Yêu cầu: JDK 21 <br>
     Thư viện Slick2D + LWJGL nằm ở libs/natives/windows<br>
     Thêm thư viện thông qua VM options: -Djava.library.path="C:\VN-Ludo123\lib\natives\windows" thay "C:\VN-Ludo123\lib\natives\windows" bằng đường dẫn của bạn<br>
+    Thêm jars: Project Structure->Modules->Dependencies-> click "+"-> add "jars"
     Chạy trong IDE IntelliJ <br>
     Chạy file Game.java<br>
