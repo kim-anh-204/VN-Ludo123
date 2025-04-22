@@ -12,6 +12,7 @@ public class Settings extends BasicGameState {
     private static final int SCREEN_HEIGHT = Game.SCREEN_HEIGHT;
 
     private Image background;
+    private Image settingsImage;
     private String message;
     private float messageX, messageY;
     private float okButtonX, okButtonY;
@@ -24,13 +25,15 @@ public class Settings extends BasicGameState {
     private float okButtonHeight = 50f; // Chiều cao nút OK
 
     public Settings(int state) {
-        this.message = message;
+        this.message = "Cài đặt đang được phát triển!";
     }
+
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        background = new Image("res/message-box-background.png"); // Background for the message box
+        settingsImage = new Image("res/message-box-background.png"); // Background for the message box
         okButton = new Image("res/button-ok.png"); // OK button
+        background = new Image("res/rule-background.png");
 
         // Calculate positions for the message box
         messageX = (SCREEN_WIDTH - boxWidth) / 2;
@@ -38,13 +41,13 @@ public class Settings extends BasicGameState {
 
         // Calculate position for the OK button
         okButtonX = (SCREEN_WIDTH - okButtonWidth) / 2;
-        okButtonY = messageY + boxHeight - okButtonHeight - 10; // Position OK button below the message box
+        okButtonY = messageY + boxHeight +40; // Position OK button below the message box
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        background.draw(messageX, messageY, boxWidth, boxHeight); // Draw background with specified size
-
+        background.draw(0, 0, Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT);
+        settingsImage.draw(messageX, messageY, boxWidth, boxHeight); // Draw background with specified size
         // Draw message text (could be more complex if needed)
         g.setColor(Color.white);
         g.drawString(message, messageX + 20, messageY + 20);
@@ -70,6 +73,7 @@ public class Settings extends BasicGameState {
 
     @Override
     public int getID() {
-        return 4; // Unique ID for this state
+        return 4;
     }
+
 }
