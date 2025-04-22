@@ -2,8 +2,10 @@ package states;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.TrueTypeFont;
+
 import java.awt.Font;
 
 import ui.Game;
@@ -15,7 +17,7 @@ public class Setup extends BasicGameState {
 	public static final int SCREEN_WIDTH = Game.SCREEN_WIDTH;
 	public static final int SCREEN_HEIGHT = Game.SCREEN_HEIGHT;
 	public static final int NEG_INFINITY = Integer.MIN_VALUE;
-	
+
 	// coordinates for choosing mode (human or com. or inactive) button
 	private static int mode_x;
 	private static int human1_y = 175;
@@ -30,7 +32,7 @@ public class Setup extends BasicGameState {
 	private static int inactive2_y = NEG_INFINITY;
 	private static int inactive3_y = NEG_INFINITY;
 	private static int inactive4_y = NEG_INFINITY;
-	
+
 	// number of players in categories:
 	private static int numOfInactive = 0;
 	private static int numOfHuman = 1;
@@ -167,72 +169,58 @@ public class Setup extends BasicGameState {
 		int xPos = Mouse.getX();
 		int yPos = Mouse.getY();
 
-		int startWidth = start.getWidth();   // 200px
-		int startHeight = start.getHeight(); // 51px
-		int exitWidth = exitt.getWidth();    // 200px
-		int exitHeight = exitt.getHeight();  // 51px
-
-		// Vị trí của nút Start và Exit (Căn giữa trên màn hình)
-		int totalButtonWidth = startWidth + exitWidth + 40;  // Tổng chiều rộng của cả 2 nút cộng khoảng cách 40px
-		int buttonsStartX = (SCREEN_WIDTH - totalButtonWidth) / 2;  // Căn giữa trên màn hình
-		int buttonsY = SCREEN_HEIGHT - startHeight - 30;  // Vị trí Y của nút (cách đáy màn hình 30px)
-
-		int startX = buttonsStartX;
-		int startY = buttonsY;
-
-		int exitX = buttonsStartX + startWidth + 40;  // Nút Exit nằm bên phải nút Start
-		int exitY = buttonsY;  // Cùng hàng với nút Start
+		int startX = (SCREEN_WIDTH - start.getWidth()) / 2;
+		int startY = 50 + start.getHeight();
 
 		Input input = gc.getInput();
 
-		// Kiểm tra sự kiện nhấn nút Start
 		checkConditionOnClickingStartButton(sbg, input, xPos, yPos, startX, startY);
 
-		// Kiểm tra sự kiện nhấn nút Exit
-		if ((xPos > exitX && xPos < exitX + exitWidth) && (yPos > exitY && yPos < exitY + exitHeight)) {
-			if (input.isMouseButtonDown(0)) {
-				gc.exit();
-			}
-		}
-
-		// Cập nhật chế độ người chơi
 		changePlayerMode(input, xPos, yPos);
 	}
-
-
-
-
 	private void checkConditionOnClickingStartButton(StateBasedGame sbg, Input input, int xPos, int yPos, int startX, int startY) {
 		if ((xPos > startX && xPos < startX + start.getWidth()) && (yPos > 50 && yPos < startY)) {
-			if (input.isMouseButtonDown(0)) {
-				// show warning if all active players' name are not filled out
-				if (bluePlayer.getText().isEmpty() && !isBlueInactive || yellowPlayer.getText().isEmpty() && !isYellowInactive || 
-						greenPlayer.getText().isEmpty() && !isGreenInactive || redPlayer.getText().isEmpty() && !isRedInactive) {
-					warning = "Vui long nhap ten cho tat ca nguoi choi dang hoat dong!";
-				} 
-				// min player: 2 players to start the game
+			if (input.isMouseButtonDown(0))  {  // Kiểm tra chuột trái đã được nhấn
+			 // Kiểm tra chuột trái đã được nhấn
+
+				// Kiểm tra các điều kiện của người chơi
+				if ((bluePlayer.getText().isEmpty() && !isBlueInactive) ||
+						(yellowPlayer.getText().isEmpty() && !isYellowInactive) ||
+						(greenPlayer.getText().isEmpty() && !isGreenInactive) ||
+						(redPlayer.getText().isEmpty() && !isRedInactive)) {
+					warning = "Vui lòng nhập tên cho tất cả người chơi đang hoạt động!";
+				}
+				// Kiểm tra số lượng người chơi ít nhất 2
 				else if ((isBlueInactive && isYellowInactive && isGreenInactive) ||
-						   (isBlueInactive && isYellowInactive && isRedInactive) ||
-						   (isBlueInactive && isGreenInactive && isRedInactive) ||
-						   (isYellowInactive && isGreenInactive && isRedInactive)) {
-					warning = "Phai co it nhat 2 nguoi choi de bat dau tro choi";
-				} 
-				// all active players cannot be computer at the same time
-				else if ((4- numOfInactive) == (4-numOfHuman-numOfInactive)) {
-					warning = "Phai co it nhat 1 nguoi choi la nguoi that de bat dau!";
+						(isBlueInactive && isYellowInactive && isRedInactive) ||
+						(isBlueInactive && isGreenInactive && isRedInactive) ||
+						(isYellowInactive && isGreenInactive && isRedInactive)) {
+					warning = "Phải có ít nhất 2 người chơi để bắt đầu trò chơi!";
+				}
+				// Kiểm tra không có tất cả người chơi là máy
+				else if ((4 - numOfInactive) == (4 - numOfHuman - numOfInactive)) {
+					warning = "Phải có ít nhất 1 người chơi là người thật để bắt đầu!";
 				} else {
+					// Nếu tất cả điều kiện đều đúng, chuyển sang trạng thái trò chơi
 					try {
-			            Thread.sleep(300);
-			        } catch (Exception e) {
-			            System.out.println(e);
-			        }
-					sbg.enterState(2);
+						Thread.sleep(300);  // Tạm dừng một chút trước khi chuyển trạng thái
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+					System.out.println("Tên người chơi xanh: " + bluePlayer.getText());
+					System.out.println("isBlueInactive: " + isBlueInactive);
+					sbg.enterState(2);  // Chuyển sang trạng thái tiếp theo (trạng thái trò chơi)
+					System.out.println("xPos: " + xPos + ", yPos: " + yPos);
+					System.out.println("startX: " + startX + ", startY: " + startY);
+					System.out.println("startWidth: " + start.getWidth() + ", startHeight: " + start.getHeight());
 				}
 			}
 		}
 	}
 
 	private void changePlayerMode(Input input, int xPos, int yPos) {
+
+
 		// Player 1 - Blue
 		if ((xPos > mode_x && xPos < mode_x + com.getWidth()) &&
 				(yPos > SCREEN_HEIGHT - 175 - 80 && yPos < SCREEN_HEIGHT - 175)) {

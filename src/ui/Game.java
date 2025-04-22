@@ -38,6 +38,7 @@ public class Game extends StateBasedGame {
 	
 	public static void main(String[] args) {
 		AppGameContainer appgc;
+
 		try {
 			appgc = new AppGameContainer(new Game(gameName));
 			appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
