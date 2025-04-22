@@ -18,6 +18,7 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người - Máy - Khô
     Không được đi nhảy qua quân đối phương trừ khi quân đối phương đang ở ô đầu tiên vừa xuất chuồng<br>
     Ai đưa 4 quân về đích trước sẽ thắng!<br>
 🚮 Cách Chạy Game<br>
+    Tải source code: https://github.com/kim-anh-204/VN-Ludo123.git <br>
     Yêu cầu: JDK 21 <br>
     Thư viện Slick2D + LWJGL nằm ở libs/natives/windows<br>
     Thêm thư viện thông qua VM options: -Djava.library.path="C:\VN-Ludo123\lib\natives\windows" thay "C:\VN-Ludo123\lib\natives\windows" bằng đường dẫn của bạn<br>
