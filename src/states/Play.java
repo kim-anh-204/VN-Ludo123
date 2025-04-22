@@ -91,10 +91,12 @@ public class Play extends BasicGameState {
 
 	private Timer timer;
 	private boolean delayEnded;
-
 	private Sound sound;
+	private Sound sound1;
+	private Sound sound2;
 
 	public Play(int state) {
+
 	}
 
 	private void renderDiceNewGame() {
@@ -123,27 +125,6 @@ public class Play extends BasicGameState {
 		diceY_hidden6 = NEG_INFINITY;
 	}
 
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		board = new Image("res/board.png");
-		normalDice = new Image("res/dice.png");
-		roll = new Image("res/roll.png");
-		dice1 = new Image("res/dice-1.png");
-		dice2 = new Image("res/dice-2.png");
-		dice3 = new Image("res/dice-3.png");
-		dice4 = new Image("res/dice-4.png");
-		dice5 = new Image("res/dice-5.png");
-		dice6 = new Image("res/dice-6.png");
-		newGame = new Image("res/new-game.png");
-		quitGame = new Image("res/quit-game.png");
-		gamePanel = new Image("res/game-panel.png");
-
-		sound = new Sound();
-		sound.setFile(0); // Load background music
-
-		quitX = board.getWidth() + (SCREEN_WIDTH - board.getWidth() - quitGame.getWidth()) / 2;
-		quitY = SCREEN_HEIGHT - quitGame.getHeight() - 20;
-	}
-
 	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		super.enter(gc, sbg);
 		isMovesAvailable = false;
@@ -155,8 +136,6 @@ public class Play extends BasicGameState {
 		renderDiceNewGame();
 		diceResult = 0;
 		resetDiceIfNoMovesPossible = true;
-
-		// Play music if enabled
 		if (Settings.isMusicEnabled) {
 			sound.loop();
 		} else {
@@ -173,11 +152,28 @@ public class Play extends BasicGameState {
 		delayEnded = true;
 	}
 
-	@Override
-	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		super.leave(gc, sbg);
-		// Stop music when leaving play state
-		sound.stop();
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		board = new Image("res/board.png");
+		normalDice = new Image("res/dice.png");
+		roll = new Image("res/roll.png");
+		dice1 = new Image("res/dice-1.png");
+		dice2 = new Image("res/dice-2.png");
+		dice3 = new Image("res/dice-3.png");
+		dice4 = new Image("res/dice-4.png");
+		dice5 = new Image("res/dice-5.png");
+		dice6 = new Image("res/dice-6.png");
+		newGame = new Image("res/new-game.png");
+		quitGame = new Image("res/quit-game.png");
+		gamePanel = new Image("res/game-panel.png");
+		sound = new Sound();
+		sound.setFile(0);
+		sound1 = new Sound();
+		sound1.setFile(0);
+		sound2 = new Sound();
+		sound2.setFile(0);
+
+		quitX = board.getWidth() + (SCREEN_WIDTH - board.getWidth() - quitGame.getWidth()) / 2;
+		quitY = SCREEN_HEIGHT - quitGame.getHeight() - 20;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -186,6 +182,7 @@ public class Play extends BasicGameState {
 		g.setColor(Color.black);
 		g.drawString("Luot cua: " + activePlayer.getName(), 875, 125);
 		g.drawString(instructionText, 875, 185);
+		//		g.drawString(getAvailableMovesText(), 875, 185);
 		g.drawImage(normalDice, diceX, diceY);
 		g.drawImage(dice1, diceX_hidden1, diceY_hidden1);
 		g.drawImage(dice2, diceX_hidden2, diceY_hidden2);
@@ -220,15 +217,21 @@ public class Play extends BasicGameState {
 			kickingAnimation();
 
 			if (!kickingAnimation) {
+
+				// Reset the dice and end one's turn when finish one's moves or no move is
+				// available
 				if (activePlayer.isReady) {
 					resetDice();
 					activePlayer.isReady = false;
 				}
 
+				// Rolling dice phase by clicking and holding the roll button, until a result
+				// appears
 				if ((input.isMouseButtonDown(0) && resetDiceIfNoMovesPossible
 						&& mouseX > rollX && mouseX < (rollX + roll.getWidth())
 						&& mouseY > rollY && mouseY < rollY + roll.getHeight() || activePlayer.isComputer())
 						&& !(rollingDicePhase && choosingFigurePhase)) {
+					// random > 0 -> holding the button works
 					if (random > 0) {
 						instructionText = activePlayer.isComputer() ? " May tinh dang thuc hien nuoc di.\nHay chu y!"
 								: "Giu nut \"DO XUC XAC\" de do xuc xac";
@@ -269,14 +272,16 @@ public class Play extends BasicGameState {
 							delayEnded = false;
 							timer.start();
 							activePlayer.isReady = true;
-						} else if (!activePlayer.isComputer()) {
+						}
+						else if (!activePlayer.isComputer()){
 							instructionText = "Hay thuc hien mot nuoc di! Sau do, "
 									+ "\nxuc xac se duoc thiet lap lai.";
 							resetDiceIfNoMovesPossible = true;
-						} else {
+						}
+						else {
 							resetDiceIfNoMovesPossible = true;
 						}
-						random = -1;
+						random = -1; // set to -1 so players cannot press the button anymore
 					}
 				}
 
@@ -397,6 +402,7 @@ public class Play extends BasicGameState {
 						currentX = currentX - stepX;
 					} else if (currentX < startX) {
 						currentX = currentX + stepX;
+
 					}
 
 					if (currentY > startY) {
@@ -487,56 +493,64 @@ public class Play extends BasicGameState {
 		instructionText = activePlayer.isComputer() ? "May tinh dang thuc hien nuoc di.\nHay chu y!"
 				: "Giu nut \"DO XUC XAC\" de do xuc xac";
 
+		// reset the dice image position
 		switch (diceResult) {
 			case 1:
 				diceX = diceX_hidden1;
 				diceY = diceY_hidden1;
+
 				diceX_hidden1 = NEG_INFINITY;
 				diceY_hidden1 = NEG_INFINITY;
 				break;
 			case 2:
 				diceX = diceX_hidden2;
-				diceY = diceX_hidden2;
+				diceY = diceY_hidden2;
+
 				diceX_hidden2 = NEG_INFINITY;
 				diceY_hidden2 = NEG_INFINITY;
 				break;
 			case 3:
 				diceX = diceX_hidden3;
 				diceY = diceY_hidden3;
+
 				diceX_hidden3 = NEG_INFINITY;
 				diceY_hidden3 = NEG_INFINITY;
 				break;
 			case 4:
 				diceX = diceX_hidden4;
 				diceY = diceY_hidden4;
+
 				diceX_hidden4 = NEG_INFINITY;
 				diceY_hidden4 = NEG_INFINITY;
 				break;
 			case 5:
 				diceX = diceX_hidden5;
 				diceY = diceY_hidden5;
+
 				diceX_hidden5 = NEG_INFINITY;
 				diceY_hidden5 = NEG_INFINITY;
 				break;
 			case 6:
 				diceX = diceX_hidden6;
 				diceY = diceY_hidden6;
+
 				diceX_hidden6 = NEG_INFINITY;
 				diceY_hidden6 = NEG_INFINITY;
 				break;
 		}
 	}
-
+	//nếu chưa có quân nào ra chuồng đc 3 lần quay xx
 	private boolean isEndTurn(int diceResult) {
 		return diceResult != 1 && diceResult != 6;
 	}
+
+
 
 	private String getWinningMessage() {
 		return "Chuc mung! " + activePlayer.getName() + "\n"
 				+ "da chien thang tro choi. Nhan VAN MOI \n"
 				+ "de bat dau tro choi moi hoac THOAT \n"
-				+ "de thoat tro choi.";
-	}
+				+ "de thoat tro choi.";}
 
 	private void renderNewGameButton(Input input, StateBasedGame sbg) {
 		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2
@@ -560,6 +574,7 @@ public class Play extends BasicGameState {
 		}
 	}
 
+	// ID of Play is 2
 	public int getID() {
 		return 2;
 	}
