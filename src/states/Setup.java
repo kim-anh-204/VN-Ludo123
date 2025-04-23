@@ -188,18 +188,18 @@ public class Setup extends BasicGameState {
 						(yellowPlayer.getText().isEmpty() && !isYellowInactive) ||
 						(greenPlayer.getText().isEmpty() && !isGreenInactive) ||
 						(redPlayer.getText().isEmpty() && !isRedInactive)) {
-					warning = "Vui lòng nhập tên cho tất cả người chơi đang hoạt động!";
+					warning = "Vui long nhap ten cho tat ca nguoi choi dsng hoat dong";
 				}
 				// Kiểm tra số lượng người chơi ít nhất 2
 				else if ((isBlueInactive && isYellowInactive && isGreenInactive) ||
 						(isBlueInactive && isYellowInactive && isRedInactive) ||
 						(isBlueInactive && isGreenInactive && isRedInactive) ||
 						(isYellowInactive && isGreenInactive && isRedInactive)) {
-					warning = "Phải có ít nhất 2 người chơi để bắt đầu trò chơi!";
+					warning = "Phai co it nhat 2 nguoi choi";
 				}
 				// Kiểm tra không có tất cả người chơi là máy
 				else if ((4 - numOfInactive) == (4 - numOfHuman - numOfInactive)) {
-					warning = "Phải có ít nhất 1 người chơi là người thật để bắt đầu!";
+					warning = "Phai co it nhat 1 nguoi la nguoi that";
 				} else {
 					// Nếu tất cả điều kiện đều đúng, chuyển sang trạng thái trò chơi
 					try {

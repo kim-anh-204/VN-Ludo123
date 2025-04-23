@@ -8,6 +8,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 import ui.Game;
 
 public class Settings extends BasicGameState {
+    public static boolean current = true;
 
     private static final int SCREEN_WIDTH = Game.SCREEN_WIDTH;
     private static final int SCREEN_HEIGHT = Game.SCREEN_HEIGHT;
@@ -28,8 +29,8 @@ public class Settings extends BasicGameState {
     private float flapSoundCheckboxX, flapSoundCheckboxY;
     private float okButtonX, okButtonY;
 
-    private float boxWidth = 1000f;
-    private float boxHeight = 600f; // Increased height to accommodate three checkboxes
+    private float boxWidth = 500f;
+    private float boxHeight = 300f; // Increased height to accommodate three checkboxes
     private float checkboxSize = 50f;
     private float okButtonWidth = 150f;
     private float okButtonHeight = 50f;
@@ -46,7 +47,7 @@ public class Settings extends BasicGameState {
     private TrueTypeFont font;
 
     public Settings(int state) {
-        this.message = "Setting";
+        this.message = "SETTING";
     }
 
     @Override
@@ -65,7 +66,7 @@ public class Settings extends BasicGameState {
 
         float spacing = 50f;
         musicCheckboxX = messageX + 40;
-        musicCheckboxY = messageY + 60;
+        musicCheckboxY = messageY + 80;
 
         diceSoundCheckboxX = musicCheckboxX;
         diceSoundCheckboxY = musicCheckboxY + spacing;
@@ -74,7 +75,7 @@ public class Settings extends BasicGameState {
         flapSoundCheckboxY = diceSoundCheckboxY + spacing;
 
         okButtonX = messageX + (boxWidth - okButtonWidth) / 2;
-        okButtonY = messageY + boxHeight - okButtonHeight - 20;
+        okButtonY = messageY + boxHeight + 40f;
 
         musicCheckboxArea = new MouseOverArea(gc, null, (int)musicCheckboxX, (int)musicCheckboxY, (int)checkboxSize, (int)checkboxSize);
         diceSoundCheckboxArea = new MouseOverArea(gc, null, (int)diceSoundCheckboxX, (int)diceSoundCheckboxY, (int)checkboxSize, (int)checkboxSize);
@@ -93,11 +94,7 @@ public class Settings extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         background.draw(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-        // Draw container
-        g.setColor(new Color(255, 255, 255, 0.8f));
-        g.fillRoundRect(messageX, messageY, boxWidth, boxHeight, 15);
-
+        settingsImage.draw(messageX, messageY, boxWidth, boxHeight);
         // Title
         g.setColor(Color.black);
         g.setFont(font);
@@ -105,9 +102,16 @@ public class Settings extends BasicGameState {
         g.drawString(message, titleX, messageY + 15);
 
         // Checkboxes
-        renderCheckbox(g, musicCheckboxX, musicCheckboxY, "Enable Music", musicChecked, musicCheckboxArea.isMouseOver());
-        renderCheckbox(g, diceSoundCheckboxX, diceSoundCheckboxY, "Enable Dice Sound", diceSoundChecked, diceSoundCheckboxArea.isMouseOver());
-        renderCheckbox(g, flapSoundCheckboxX, flapSoundCheckboxY, "Enable Flap Sound", flapSoundChecked, flapSoundCheckboxArea.isMouseOver());
+        // Checkboxes
+        String[] labels = { "Enable Music", "Enable Dice Sound", "Enable Flap Sound" };
+        boolean[] checks = { musicChecked, diceSoundChecked, flapSoundChecked };
+        boolean[] hovers = { musicCheckboxArea.isMouseOver(), diceSoundCheckboxArea.isMouseOver(), flapSoundCheckboxArea.isMouseOver() };
+
+        float spacing = 70f; // Tăng spacing cho cân đối đẹp hơn
+        for (int i = 0; i < labels.length; i++) {
+            float y = musicCheckboxY + i * spacing;
+            renderCheckbox(g, musicCheckboxX, y, labels[i], checks[i], hovers[i]);
+        }
 
         // OK Button
         if (okButtonArea.isMouseOver()) {
@@ -155,7 +159,12 @@ public class Settings extends BasicGameState {
                 sound.stop();
             }
 
-            sbg.enterState(0);
+            if(current){
+                sbg.enterState(0);
+            }
+            else {
+                sbg.enterState(2);
+            }
         }
     }
 

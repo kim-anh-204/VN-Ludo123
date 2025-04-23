@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class Play extends BasicGameState {
+	public static boolean PlayCurrent = false;
 	private static final int SCREEN_WIDTH = Game.SCREEN_WIDTH;
 	private static final int SCREEN_HEIGHT = Game.SCREEN_HEIGHT;
 	public static final int NEG_INFINITY = Integer.MIN_VALUE;
@@ -33,6 +34,7 @@ public class Play extends BasicGameState {
 	Image dice5;
 	Image dice6;
 	Image newGame;
+	Image settingGame;
 	Image quitGame;
 	Image gamePanel;
 
@@ -139,6 +141,7 @@ public class Play extends BasicGameState {
 		dice5 = new Image("res/dice-5.png");
 		dice6 = new Image("res/dice-6.png");
 		newGame = new Image("res/new-game.png");
+		settingGame = new Image("res/btn-setting-play.png");
 		quitGame = new Image("res/quit-game.png");
 		gamePanel = new Image("res/game-panel.png");
 
@@ -203,7 +206,7 @@ public class Play extends BasicGameState {
 		g.setBackground(new Color(241, 250, 238));
 		g.drawImage(board, 0, 0);
 		g.setColor(Color.black);
-		g.drawString("Lượt của: " + activePlayer.getName(), 875, 125);
+		g.drawString("Luot cua: " + activePlayer.getName(), 875, 125);
 		g.drawString(instructionText, 875, 185);
 		g.drawImage(normalDice, diceX, diceY);
 		g.drawImage(dice1, diceX_hidden1, diceY_hidden1);
@@ -215,7 +218,9 @@ public class Play extends BasicGameState {
 		g.drawImage(gamePanel, board.getWidth() + (SCREEN_WIDTH - board.getWidth() - gamePanel.getWidth()) / 2, 20);
 		g.drawImage(quitGame, quitX, quitY);
 		g.drawImage(newGame, board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2,
-				SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 40);
+				SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 30);
+		g.drawImage(settingGame, board.getWidth() + (SCREEN_WIDTH - board.getWidth() - settingGame.getWidth()) / 2,
+				SCREEN_HEIGHT - settingGame.getHeight() - quitGame.getHeight() - 80);
 
 		g.drawImage(roll, rollX, rollY);
 
@@ -231,7 +236,7 @@ public class Play extends BasicGameState {
 		mouseY = SCREEN_HEIGHT - Mouse.getY();
 
 		Input input = gc.getInput();
-
+		renderSettingButton(input,sbg);
 		renderNewGameButton(input, sbg);
 		renderQuitGameButton(input);
 
@@ -250,7 +255,7 @@ public class Play extends BasicGameState {
 						&& mouseY > rollY && mouseY < rollY + roll.getHeight() || activePlayer.isComputer())
 						&& !(rollingDicePhase && choosingFigurePhase)) {
 					if (random > 0) {
-						instructionText = activePlayer.isComputer() ? " May tinh đang thuc hien nuoc di.\nHay chu y!"
+						instructionText = activePlayer.isComputer() ? " May tinh dang thuc hien nuoc di.\nHay chu y!"
 								: "Giu nut \"DO XUC XAC\" de do xuc xac";
 						// Play dice sound at the start of rolling animation
 						if (Settings.isDiceSoundEnabled && !diceSoundPlayed) {
@@ -574,14 +579,28 @@ public class Play extends BasicGameState {
 		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2
 				&& mouseX < board.getWidth() + (SCREEN_WIDTH - board.getWidth() - newGame.getWidth()) / 2
 				+ newGame.getWidth()
-				&& mouseY > SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 40
-				&& mouseY < SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 40
+				&& mouseY > SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 30
+				&& mouseY < SCREEN_HEIGHT - newGame.getHeight() - quitGame.getHeight() - 30
 				+ newGame.getHeight()) {
 			if (input.isMouseButtonDown(0)) {
-				sbg.enterState(1);
+				sbg.enterState(0);
 			}
 		}
 	}
+	private void renderSettingButton(Input input, StateBasedGame sbg) {
+		if (mouseX > board.getWidth() + (SCREEN_WIDTH - board.getWidth() - settingGame.getWidth()) / 2
+				&& mouseX < board.getWidth() + (SCREEN_WIDTH - board.getWidth() - settingGame.getWidth()) / 2
+				+ settingGame.getWidth()
+				&& mouseY > SCREEN_HEIGHT - settingGame.getHeight() - quitGame.getHeight() - 80
+				&& mouseY < SCREEN_HEIGHT - settingGame.getHeight() - quitGame.getHeight() - 80
+				+ settingGame.getHeight()) {
+			if (input.isMouseButtonDown(0)) {
+				Settings.current =PlayCurrent;
+				sbg.enterState(4);
+			}
+		}
+	}
+
 
 	private void renderQuitGameButton(Input input) {
 		if ((mouseX > quitX && mouseX < quitX + quitGame.getWidth())

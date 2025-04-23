@@ -7,6 +7,7 @@ import org.newdawn.slick.state.*;
 import ui.Game;
 
 public class Menu extends BasicGameState {
+	public static boolean MenuCurrent = true;
 	private static final int SCREEN_WIDTH = Game.SCREEN_WIDTH;
 	private static final int SCREEN_HEIGHT = Game.SCREEN_HEIGHT;
 
@@ -42,7 +43,7 @@ public class Menu extends BasicGameState {
 
 		// Position buttons
 		double fromImageToEdge = 0.2;
-		float offsetY = 320f;
+		float offsetY = 280f;
 
 		playX = (SCREEN_WIDTH - play.getWidth()) / 2;
 		playY = (float)(SCREEN_HEIGHT * fromImageToEdge +
@@ -120,6 +121,7 @@ public class Menu extends BasicGameState {
 				} catch (Exception e) {
 					System.out.println(e);
 				}
+				Settings.current=MenuCurrent;
 				sbg.enterState(4);
 			}
 		}
