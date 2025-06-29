@@ -18,6 +18,60 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người - Máy - Khô
     Không được đi nhảy qua quân đối phương trừ khi quân đối phương đang ở ô đầu tiên vừa xuất chuồng<br>
     Ai đưa 4 quân về đích trước sẽ thắng!<br>
 🚮 Cách Chạy Game<br>
+KẾT QUẢ THU ĐƯỢC 
+
+Giao diện bắt đầu 
+A blue background with text and dice and a hand holding a chess piece
+
+AI-generated content may be incorrect., Hình ảnh
+
+5.2. Giao diện thiết lập trò chơi 
+
+A screenshot of a computer game
+
+AI-generated content may be incorrect., Hình ảnh 
+
+5.3. Giao diện bàn cờ 
+
+A screenshot of a game
+
+AI-generated content may be incorrect., Hình ảnh 
+
+5.4. Giao diện khi có người chiến thắng 
+
+A screenshot of a game
+
+AI-generated content may be incorrect., Hình ảnh 
+
+ 
+
+5.5. Giao diện cài đặt 
+
+A screenshot of a computer
+
+AI-generated content may be incorrect., Hình ảnh 
+
+5.6. Giao diện luật chơi 
+
+A screenshot of a computer
+
+AI-generated content may be incorrect., Hình ảnh 
+
+5.7. Xử lý di chuyển quân 
+
+A screenshot of a game
+
+AI-generated content may be incorrect., Hình ảnhA game with horses and dice
+
+AI-generated content may be incorrect., Hình ảnh 
+
+Hình 1. Trước khi bị đá                              Hình 2 . Sau khi bị đá 
+
+A game with horses and numbers
+
+AI-generated content may be incorrect., Hình ảnh 
+
+Hình 3. Khi không có nước đi khả dụng 
     Tải source code: https://github.com/kim-anh-204/VN-Ludo123.git <br>
     Yêu cầu: JDK 21 <br>
     Thư viện Slick2D + LWJGL nằm ở libs/natives/windows<br>
