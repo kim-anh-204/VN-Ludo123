@@ -68,4 +68,5 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 | 💥 Sau khi bị đá              | ![](res/GiaoDienSauKhiBiDa.jpg)            |
 | 🚫 Không có nước đi khả dụng | ![](res/GiaoDienKhongCoNuocDiKhaDung.jpg)  |
 | 🏆 Giao diện khi thắng        | ![](res/GiaoDienKhiThang.jpg)              |
+
 EOF
