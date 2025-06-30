@@ -1,3 +1,4 @@
+cat <<EOF > README.md
 # 🐎 GAME CỜ CÁ NGỰA – VN-Ludo123
 
 **Một phiên bản sinh động của trò chơi bàn cổ điển Ludo**, được phát triển bằng **Java** kết hợp thư viện **Slick2D + LWJGL**.  
@@ -7,12 +8,12 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người – Máy – 
 
 ## 🚀 Tính năng nổi bật
 
-- 🎨 Bàn cờ Ludo sinh động, đẹp mắt
-- 🎲 Xúc xắc quay ngẫu nhiên và hiển thị trực quan
-- 🧠 Hỗ trợ nhiều chế độ: Người chơi / Máy / Không tham gia
-- 🚗 Di chuyển, đánh bật quân đối thủ và về đích
-- ⟳ Nút **"Ván Mới"** giúp khởi động lại trò chơi nhanh chóng
-- ⏱ Hiển thị luật chơi và các thông báo rõ ràng
+- 🎨 Bàn cờ Ludo sinh động, đẹp mắt  
+- 🎲 Xúc xắc quay ngẫu nhiên và hiển thị trực quan  
+- 🧠 Hỗ trợ nhiều chế độ: Người chơi / Máy / Không tham gia  
+- 🚗 Di chuyển, đánh bật quân đối thủ và về đích  
+- ⟳ Nút **"Ván Mới"** giúp khởi động lại trò chơi nhanh chóng  
+- ⏱ Hiển thị luật chơi và các thông báo rõ ràng  
 
 ---
 
@@ -42,20 +43,21 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người – Máy – 
 
 ### ✅ Hướng dẫn:
 
-```bash
+\`\`\`bash
 # 1. Tải source code:
 git clone https://github.com/kim-anh-204/VN-Ludo123.git
 
 # 2. Cài đặt thư viện:
-#   - Thêm jars: File > Project Structure > Modules > Dependencies > "+" > Add JARs or directories
-#   - Thêm VM Options:
+#    - Thêm jars: File > Project Structure > Modules > Dependencies > "+" > Add JARs or directories
+#    - Thêm VM Options:
+-Djava.library.path="C:\\duong_dan_toi\\VN-Ludo123\\lib\\natives\\windows"
+\`\`\`
 
--Djava.library.path="C:\duong_dan_toi\VN-Ludo123\lib\natives\windows"
+> *(Thay bằng đúng đường dẫn thư mục \`natives\` trên máy bạn)*
 
-# (Thay bằng đúng đường dẫn thư mục `natives` của bạn)
+---
 
-
-    ## 🖼️ Giao diện trò chơi
+## 🖼️ Giao diện trò chơi
 
 | Chức năng                     | Ảnh minh họa                                |
 |-------------------------------|---------------------------------------------|
@@ -66,4 +68,6 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 | 💥 Sau khi bị đá              | ![](res/GiaoDienSauKhiBiDa.jpg)            |
 | 🚫 Không có nước đi khả dụng | ![](res/GiaoDienKhongCoNuocDiKhaDung.jpg)  |
 | 🏆 Giao diện khi thắng        | ![](res/GiaoDienKhiThang.jpg)              |
+
+---
 
