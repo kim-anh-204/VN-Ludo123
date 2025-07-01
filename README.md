@@ -43,7 +43,7 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người – Máy – 
 
 ### ✅ Hướng dẫn:
 
-\`\`\`bash
+
 # 1. Tải source code:
 git clone https://github.com/kim-anh-204/VN-Ludo123.git
 
@@ -51,7 +51,7 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 #    - Thêm jars: File > Project Structure > Modules > Dependencies > "+" > Add JARs or directories
 #    - Thêm VM Options:
 -Djava.library.path="C:\\duong_dan_toi\\VN-Ludo123\\lib\\natives\\windows"
-\`\`\`
+
 
 > *(Thay bằng đúng đường dẫn thư mục \`natives\` trên máy bạn)*
 
