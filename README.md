@@ -1,4 +1,4 @@
-cat <<EOF > README.md
+
 # 🐎 GAME CỜ CÁ NGỰA – VN-Ludo123
 
 **Một phiên bản sinh động của trò chơi bàn cổ điển Ludo**, được phát triển bằng **Java** kết hợp thư viện **Slick2D + LWJGL**.  
@@ -69,4 +69,5 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 | 🚫 Không có nước đi khả dụng | ![](res/GiaoDienKhongCoNuocDiKhaDung.jpg)  |
 | 🏆 Giao diện khi thắng        | ![](res/GiaoDienKhiThang.jpg)              |
 
-EOF
+👉 Xem báo cáo tại: [**TTNT_Nhom11_Final.docx**](BaoCao/TTNT_Nhom11_Final.docx)
+
