@@ -69,5 +69,5 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 | 🚫 Không có nước đi khả dụng | ![](res/GiaoDienKhongCoNuocDiKhaDung.jpg)  |
 | 🏆 Giao diện khi thắng        | ![](res/GiaoDienKhiThang.jpg)              |
 
-👉 Xem báo cáo tại: [**TTNT_Nhom11_Final.docx**](BaoCao/TTNT_Nhom11_Final.docx)
+👉 Xem báo cáo tại: [**TTNT_Nhom11_Final.docx**](TTNT_Nhom11_Final.docx)
 
