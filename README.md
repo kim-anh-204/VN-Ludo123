@@ -70,4 +70,5 @@ git clone https://github.com/kim-anh-204/VN-Ludo123.git
 | 🏆 Giao diện khi thắng        | ![](res/GiaoDienKhiThang.jpg)              |
 
 👉 Xem báo cáo tại: [**TTNT_Nhom11_Final.docx**](TTNT_Nhom11_Final.docx)
+> *(Nếu file không hiển thị trực tiếp, vui lòng click phải → Save As để tải về.)*
 
