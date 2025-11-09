@@ -48,8 +48,8 @@ Trò chơi hỗ trợ nhiều chế độ người chơi (Người – Máy – 
 git clone https://github.com/kim-anh-204/VN-Ludo123.git
 
 # 2. Cài đặt thư viện:
-#    - Thêm jars: File > Project Structure > Modules > Dependencies > "+" > Add JARs or directories
-#    - Thêm VM Options:
+    - Thêm jars: File > Project Structure > Modules > Dependencies > "+" > Add JARs or directories
+    - Thêm VM Options:
 -Djava.library.path="C:\\duong_dan_toi\\VN-Ludo123\\lib\\natives\\windows"
 
 
